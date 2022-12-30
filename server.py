@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 from flaskext.mysql import MySQL
 from werkzeug.utils import secure_filename
 import os
-import logging
+import voice
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -29,9 +29,11 @@ def signup():
 def upload():
     if(request.method=='POST'):
         data = request.files['audio_data']
-        print(data.read())
+        id = request.form['id']
+        #print(data.read())
         data.save('static/uploads/' + secure_filename(data.filename))
         files = os.listdir("static/uploads")
+        pwd = voice.transform(data.filename, id)
         return redirect(url_for('main'))
     else:
         return redirect(url_for('main'))
