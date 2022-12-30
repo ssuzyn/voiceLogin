@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/main.css" type="text/css">
     <title>voice login</title>
 </head>
 <body>
-    <button onclick="location.href='signup'">회원가입</button>
-    <button onclick="location.href='login'">로그인</button>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <div class="wrapper">
+        <div class="container">
+          <div class="sign-in-container">
+              <h1>Sign In</h1>
+              <button class="form_btn">Sign In</button>
+          </div>
+          <div class="overlay-container">
+            <div class="overlay-left">
+              <h1>Welcome Back</h1>
+              <p>To keep connected with us please login with your personal info</p>
+              <button id="signIn" onClick="location.href='login'" class="overlay_btn">Sign In</button>
+            </div>
+            <div class="overlay-right">
+              <h1>Hello, Friend</h1>
+              <p>Enter your personal details and start journey with us</p>
+              <button id="signUp" onClick="location.href='signup'" class="overlay_btn">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 </html>

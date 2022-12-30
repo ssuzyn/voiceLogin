@@ -41,23 +41,25 @@ pwd.onclick = async function (event) {
             audioArray.splice(0); // 기존 오디오 데이터들은 모두 비워 초기화한다.
 
             // Blob 데이터에 접근할 수 있는 주소를 생성한다.
-            const blobURL = window.URL.createObjectURL(blob);
+            //const blobURL = window.URL.createObjectURL(blob);
 
             // audio엘리먼트로 재생한다.
-            $audioEl.src = blobURL;
-            console.log(blob)
-            $audioEl.play();
+            // $audioEl.src = blobURL;
+            // console.log(blob)
+            // $audioEl.play();
 
         }
 
         // 녹음 시작
         mediaRecorder.start();
+        console.log("recording start");
         pwd.style.backgroundColor = 'red';
         isRecording = true;
 
     } else {
         // 녹음 종료
         mediaRecorder.stop();
+        console.log("recording stop");
         pwd.style.backgroundColor = 'lightGray';
         isRecording = false;
     }

@@ -30,6 +30,7 @@ def upload():
     if(request.method=='POST'):
         data = request.files['audio_data']
         id = request.form['id']
+        print("현재 디렉토리 위치 : ", os.getcwd())
         #print(data.read())
         data.save('static/uploads/' + secure_filename(data.filename))
         files = os.listdir("static/uploads")
