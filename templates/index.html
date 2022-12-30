@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <title>마이크 테스트</title>
 </head>
-
 <body>
-    <input type=checkbox id="chk-hear-mic"><label for="chk-hear-mic">마이크 소리 듣기</label>
-    <button id="record">녹음</button>
-    <button id="stop">정지</button>
-    <div id="sound-clips"></div>
+    ID : <input type="text" id="id" name="id" placeholder="ID" size="40"><br>
+    PWD : <input type="button" id="pwd" name="pwd" value="시작/종료" /><br>
+    <audio controls>녹음된 소리를 재생할 audio element</audio><br>
+    <button>signup</button>
     <script type="text/javascript" src="{{ url_for('static', filename='js/record.js') }}"></script>
 </body>
 </html>
