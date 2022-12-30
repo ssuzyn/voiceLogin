@@ -15,27 +15,27 @@ mysql.init_app(app)
 
 @app.route("/", methods=['POST', 'GET'])
 def main():
-    return render_template("index.html")
+    return render_template("main.html")
 
 @app.route("/login", methods=['POST', 'GET'])
-def signUp():
-    return render_template("signup.html")
+def login():
+    return render_template("login.html")
 
 @app.route("/signup", methods=['POST', 'GET'])
 def signup():
+    return render_template("signup.html")
+
+@app.route("/upload", methods=['POST', 'GET'])
+def upload():
     if(request.method=='POST'):
         data = request.files['audio_data']
         print(data.read())
         data.save('static/uploads/' + secure_filename(data.filename))
         files = os.listdir("static/uploads")
-        return render_template("check.html")
+        return redirect(url_for('main'))
     else:
         return redirect(url_for('main'))
 
-@app.route("/upload", methods=['POST', 'GET'])
-def file_upload():
-    return render_template("check.html")
-    
 
 if __name__=="__main__":
   app.run(debug=True)

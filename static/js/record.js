@@ -52,11 +52,13 @@ pwd.onclick = async function (event) {
 
         // 녹음 시작
         mediaRecorder.start();
+        pwd.style.backgroundColor = 'red';
         isRecording = true;
 
     } else {
         // 녹음 종료
         mediaRecorder.stop();
+        pwd.style.backgroundColor = 'lightGray';
         isRecording = false;
     }
 }
@@ -71,7 +73,7 @@ signup.onclick = async function (event) {
     console.log(fd)
 
     try {
-        let r = await fetch('http://127.0.0.1:5000/signup', { method: "POST", body: fd });
+        let r = await fetch('http://127.0.0.1:5000/upload', { method: "POST", body: fd });
         console.log('HTTP response code:', r.status);
     } catch (e) {
         console.log(e);
