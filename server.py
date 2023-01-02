@@ -25,6 +25,14 @@ def login():
 def signup():
     return render_template("signup.html")
 
+@app.route("/upload/success")
+def upload_success():
+    return render_template('check.html')
+
+@app.route("/upload/fail")
+def upload_fail():
+    return render_template('main.html')
+
 @app.route("/upload", methods=['POST', 'GET'])
 def upload():
     if(request.method=='POST'):
@@ -35,10 +43,9 @@ def upload():
         data.save('static/uploads/' + secure_filename(data.filename))
         files = os.listdir("static/uploads")
         pwd = voice.transform(data.filename, id)
-        return redirect(url_for('main'))
+        return redirect(url_for('upload_success'))
     else:
-        return redirect(url_for('main'))
-
+        return redirect(url_for('upload_fail'))
 
 if __name__=="__main__":
   app.run(debug=True)
