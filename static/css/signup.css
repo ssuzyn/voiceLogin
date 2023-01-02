@@ -11,8 +11,7 @@
     background: #ebecf0;
     overflow: hidden;
 }
-
-.container {
+.sign-in-container {
     display: flex;
     flex-direction: column;
     padding: 0 50px;
