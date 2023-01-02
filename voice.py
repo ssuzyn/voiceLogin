@@ -17,6 +17,7 @@ def transform(filename, id):
     plt.ylabel('Amplitude')
     plt.title("Waveform")
     plt.savefig(pwd)
+    os.remove(filename)
     return pwd
 
 # os.chdir("./static/uploads/")
