@@ -3,13 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/signup.css" type="text/css">
     <title>마이크 테스트</title>
 </head>
 <body>
-    ID : <input type="text" id="id" name="id" placeholder="ID" size="40"><br>
-    PWD : <input type="button" id="pwd" name="pwd" value="시작/종료" /><br>
-    <audio controls>녹음된 소리를 재생할 audio element</audio><br>
-    <button>signup</button>
+    <div class="wrapper">
+        <div class="container">
+            ID : <input type="text" id="id" name="id" placeholder="ID" size="40"><br>
+            PWD : <input type="button" id="pwd" name="pwd" value="시작/종료" /><br>
+            <!--<audio controls>녹음된 소리를 재생할 audio element</audio><br>-->
+            <button>signup</button>
+        </div>
+    </div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/record.js') }}"></script>
 </body>
 </html>

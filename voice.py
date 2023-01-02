@@ -18,6 +18,7 @@ def transform(filename, id):
     plt.title("Waveform")
     plt.savefig(pwd)
     os.remove(filename)
+    os.chdir("../../") #원래 디렉토리 위치로 이동
     return pwd
 
 # os.chdir("./static/uploads/")

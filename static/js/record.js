@@ -1,5 +1,5 @@
 // 엘리먼트 취득
-const $audioEl = document.querySelector("audio");
+//const $audioEl = document.querySelector("audio");
 const signup = document.querySelector("button")
 const pwd = document.getElementById("pwd");
 const id = document.getElementById("id")
@@ -75,8 +75,13 @@ signup.onclick = async function (event) {
     console.log(fd)
 
     try {
-        let r = await fetch('http://127.0.0.1:5000/upload', { method: "POST", body: fd });
-        console.log('HTTP response code:', r.status);
+        const res = await fetch('http://127.0.0.1:5000/upload', { method: "POST", body: fd, redirect: 'follow'});
+        console.log('HTTP response code:', res.status);
+        console.log(res.url)
+        if(res.redirected){
+            window.location.href = res.url;
+            res.redirected(res.url)
+        }
     } catch (e) {
         console.log(e);
     }
