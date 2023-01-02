@@ -57,48 +57,35 @@ button {
   cursor: pointer;
   transition: transform 80ms ease-in;
 }
-.form_btn {
+.signin {
   box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
 }
-.form_btn:active {
+.signin:active {
   box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
 }
-.overlay_btn {
+.signup {
   background-color: #ff4b2b;
   color: #fff;
   box-shadow: -5px -5px 10px #ff6b3f, 5px 5px 8px #bf4b2b;
 }
+.signup:active{
+  background-color: #ff4b2b;
+  color: #fff;
+  box-shadow: inset 1px 1px 2px #bf4b2b, inset -1px -1px 2px #ff6b3f;
+}
 .sign-in-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
   position: absolute;
+  justify-content: center;
+  align-items: center;
   left: 0;
   width: 50%;
   height: 100%;
   transition: all 0.5s;
 }
 .sign-up-container {
-  position: absolute;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  opacity: 0;
-  transition: all 0.5s;
-}
-.overlay-left {
-  display: flex;
-  flex-direction: column;
-  padding: 0 50px;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  opacity: 0;
-  background-color: #fff;
-  color: rgb(0, 0, 0);
-  transition: all 0.5s;
-}
-.overlay-right {
   display: flex;
   flex-direction: column;
   padding: 0 50px;
@@ -121,23 +108,6 @@ button {
   opacity: 1;
   z-index: 2;
 }
-.container.right-panel-active .overlay-right {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-.container.right-panel-active .overlay-left {
-  transform: translateX(-100%);
-  opacity: 1;
-  z-index: 2;
-}
-.social-links {
-  margin: 20px 0;
-}
-form h1 {
-  font-weight: bold;
-  margin: 0;
-  color: #000;
-}
 
 p {
   font-size: 16px;
@@ -150,21 +120,4 @@ span {
   color: #000;
   letter-spacing: 0.5px;
   margin-bottom: 10px;
-}
-.social-links div {
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 5px;
-  border-radius: 50%;
-  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
-  cursor: pointer;
-}
-.social-links a {
-  color: #000;
-}
-.social-links div:active {
-  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
 }
