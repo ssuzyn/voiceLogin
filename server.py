@@ -1,17 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
-from flaskext.mysql import MySQL
 from werkzeug.utils import secure_filename
 import os, warnings
 import voice, dbconn
 
-mysql = MySQL()
 app = Flask(__name__)
-
 warnings.filterwarnings(action='ignore')
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'annie1004'
-app.config['MYSQL_DATABASE_DB'] = 'voice'
-mysql.init_app(app)
 
 @app.route("/", methods=['POST', 'GET'])
 def main():
@@ -43,7 +36,8 @@ def upload():
         data.save('static/uploads/' + secure_filename(data.filename))
         files = os.listdir("static/uploads")
         pwd = voice.transform(data.filename, id)
-        dbconn.database.signup(id, pwd)
+        print(pwd)
+        dbconn.database().signup(id, pwd)
         return redirect(url_for('upload_success'))
     else:
         return redirect(url_for('upload_fail'))
