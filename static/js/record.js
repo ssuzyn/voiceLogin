@@ -80,7 +80,7 @@ signup.onclick = async function (event) {
         console.log(res.url)
         if(res.redirected){
             window.location.href = res.url;
-            res.redirected(res.url)
+            return res.redirected(res.url)
         }
     } catch (e) {
         console.log(e);

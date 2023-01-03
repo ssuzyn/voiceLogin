@@ -11,23 +11,10 @@ def transform(filename, id):
     # print(filename)
     pwd = id + '.png'
     signal, sr = librosa.load(filename)
-    plt.figure()
-    librosa.display.waveshow(signal, sr)
-    plt.xlabel('Time(s)')
-    plt.ylabel('Amplitude')
-    plt.title("Waveform")
+    S_octave = librosa.feature.melspectrogram(signal, sr=sr, n_mels=128)
+    librosa.display.specshow(librosa.power_to_db(S_octave, ref=np.max), sr=sr)
+    plt.ylim(0, 4000)
     plt.savefig(pwd)
     os.remove(filename)
     os.chdir("../../") #원래 디렉토리 위치로 이동
     return pwd
-
-# os.chdir("./static/uploads/")
-# print(os.getcwd())
-# print(os.listdir())
-# signal, sr = librosa.load('webmtest.webm')
-# plt.figure()
-# librosa.display.waveshow(signal, sr)
-# plt.xlabel('Time(s)')
-# plt.ylabel('Amplitude')
-# plt.title("Waveform")
-# plt.savefig('aaa.png')
