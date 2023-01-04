@@ -1,6 +1,7 @@
 // 엘리먼트 취득
 //const $audioEl = document.querySelector("audio");
-const signup = document.querySelector("button")
+const submit = document.getElementById("submit")
+const signup = document.getElementById("signup")
 const pwd = document.getElementById("pwd");
 const id = document.getElementById("id")
 
@@ -40,14 +41,6 @@ pwd.onclick = async function (event) {
             blob = new Blob(audioArray, { "type": "audio/ogg codecs=opus" });
             audioArray.splice(0); // 기존 오디오 데이터들은 모두 비워 초기화한다.
 
-            // Blob 데이터에 접근할 수 있는 주소를 생성한다.
-            //const blobURL = window.URL.createObjectURL(blob);
-
-            // audio엘리먼트로 재생한다.
-            // $audioEl.src = blobURL;
-            // console.log(blob)
-            // $audioEl.play();
-
         }
 
         // 녹음 시작
@@ -64,7 +57,9 @@ pwd.onclick = async function (event) {
         isRecording = false;
     }
 }
-signup.onclick = async function (event) {
+
+let num = 1;
+submit.onclick = async function(event) {
     console.log("Audio being exported.")
     var filename = id.value + ".wav";
     // console.log(filename)
@@ -72,17 +67,37 @@ signup.onclick = async function (event) {
     let fd = new FormData();
     fd.append('audio_data', blob, filename);
     fd.append('id', id.value);
+    fd.append('cnt', num);
     console.log(fd)
 
-    try {
-        const res = await fetch('http://127.0.0.1:5000/upload', { method: "POST", body: fd, redirect: 'follow'});
-        console.log('HTTP response code:', res.status);
-        console.log(res.url)
-        if(res.redirected){
-            window.location.href = res.url;
-            return res.redirected(res.url)
+    fetch('http://127.0.0.1:5000/upload', {method:'POST', body: fd})
+    .then((res) => {
+        //window.location.reload()
+        res.json()
+        submit.innerText = check(num);
+        num++;
+        if(num > 3) {
+            btnDisabled();
         }
-    } catch (e) {
-        console.log(e);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+
+function btnDisabled(){
+    submit.disabled = true;
+    signup.disabled = false;
+}
+
+function check(){
+    if(submit.value == '1차 입력'){
+        submit.value ='2차 입력';
+    }
+    else if(submit.value == '2차 입력'){
+        submit.value = '3차 입력';
+    }
+    else if(submit.value == '3차 입력'){
+        submit.value = '제출하세요';
     }
 }

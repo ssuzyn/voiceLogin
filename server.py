@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import os, warnings
@@ -20,7 +20,7 @@ def login():
 def signup():
     return render_template("signup.html")
 
-@app.route("/upload/success", methods=['GET'])
+@app.route("/signup/success", methods=['GET'])
 def upload_success():
     return render_template('check.html')
 
@@ -29,14 +29,19 @@ def upload():
     if(request.method=='POST'):
         data = request.files['audio_data']
         id = request.form['id']
+        cnt = request.form['cnt']
         #print(data.read())
-        data.save('static/uploads/' + secure_filename(data.filename))
+        path = './static/uploads/' + id + '/'
+        if not os.path.isdir(path) :
+            os.makedirs(path)
+        
+        data.save(path + secure_filename(data.filename))
         files = os.listdir("static/uploads")
-        pwd = voice.transform(data.filename, id)
+        pwd = voice.transform(data.filename, id, cnt)
         print(pwd)
         print("현재 디렉토리 위치 : ", os.getcwd())
         #dbconn.database().signup(id, pwd)
-        return redirect(url_for('upload_success'))
+        return jsonify({'host': '127.0.0.1', 'port': '5000'})
 
 if __name__=="__main__":
   app.run(debug=True)
