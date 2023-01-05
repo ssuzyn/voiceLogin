@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/css/signup.css" type="text/css">
-    <title>마이크 테스트</title>
+    <title>회원가입</title>
 </head>
 <body>
     <div class="wrapper">
         <div class="container">
             <div class="content">
-                <form>
-                    ID : <input type="text" id="id" placeholder="ID"><br>
-                    PWD : <input type="button" id="pwd" value="시작/종료" />
-                    <input type="button" id="submit" value="1차 입력"/><br><br>
+                <form class="form">
+                    <div class="item"> ID : <input type="text" id="id" placeholder="ID"></div><br>
+                    <div class="item">PWD : <input type="button" id="pwd" value="시작/종료" />
+                    <input type="button" id="submit" value="1차 입력"/></div><br><br>
                     <!--<audio controls>녹음된 소리를 재생할 audio element</audio><br>-->
                     <input type="reset" value="reset"/>
+                    <button id="signup" disabled="true" onClick="location.href='signup/success'">signup</button>
                 </form>
-                <button id="signup" disabled="true" onClick="location.href='signup/success'">signup</button>
             </div>
         </div>
     </div>

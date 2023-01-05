@@ -1,3 +1,43 @@
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ebecf0;
+  overflow: hidden;
+}
+.container {
+  display: flex;
+  border-radius: 10px;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  position: absolute;
+  width: 270px;
+  height: 300px;
+  transition: all 0.5s;
+}
+
+.form{
+  padding: 10px;
+  width:100%;
+  height:70%;
+  margin: 20px;
+}

@@ -20,16 +20,24 @@ body {
     border-radius: 10px;
     box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
     position: absolute;
-    width: 700px;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
     min-height: 420px;
     overflow: hidden;
 }
 
 .content {
-    padding: 0 50px;
+    display: flex;
     position: absolute;
-    left: 0;
-    width: 50%;
-    height: 100%;
+    width: 270px;
+    height: 300px;
     transition: all 0.5s;
-  }
+}
+
+.form{
+    padding: 10px;
+    width:100%;
+    height:70%;
+    margin: 20px;
+}
