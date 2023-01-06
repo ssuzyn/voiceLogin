@@ -72,7 +72,6 @@ submit.onclick = async function(event) {
 
     fetch('http://127.0.0.1:5000/signup/upload', {method:'POST', body: fd})
     .then((res) => {
-        //window.location.reload()
         res.json()
         submit.innerText = check(num);
         num++;
@@ -83,6 +82,10 @@ submit.onclick = async function(event) {
     .catch((error) => {
         console.log(error);
     });
+}
+
+signup.onclick = async function(event){
+    window.location.href = 'http://127.0.0.1:5000/signup/success'
 }
 
 function btnDisabled(){
