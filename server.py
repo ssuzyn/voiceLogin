@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import os, warnings
-import voice, dbconn
+import voice, dbconn, train
 
 app = Flask(__name__)
 CORS(app)
@@ -40,6 +40,7 @@ def signup():
 
 @app.route("/signup/success", methods=['GET'])
 def signup_success():
+    train.training_time()
     return render_template('check.html')
 
 @app.route("/signup/upload", methods=['POST'])

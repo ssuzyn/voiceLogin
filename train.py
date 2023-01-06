@@ -9,13 +9,16 @@ import random
 from PIL import Image
 import torch
 from torch.autograd import Variable
-import PIL.ImageOps    
+import PIL.ImageOps
 import torch.nn as nn
 from torch import optim
 import torch.nn.functional as F
+import os
+
+print("현재 디렉토리 위치 : ", os.getcwd())
 
 class Config():
-    training_dir = "./voice/uploads/"
+    training_dir = "./static/uploads/"
     train_batch_size = 3
     train_number_epochs = 15
 
@@ -63,12 +66,6 @@ class SiameseNetworkDataset(Dataset):
     def __len__(self):
         return len(self.imageFolderDataset.imgs)
 
-
-#Using Image Folder Dataset
-folder_dataset = dset.ImageFolder(root=Config.training_dir)
-siamese_dataset = SiameseNetworkDataset(imageFolderDataset=folder_dataset,
-                                        transform=transforms.Compose([transforms.Resize((100,100)),
-                                                transforms.ToTensor()]), should_invert=False)
 
 # Convolution 계층 정의
 class SiameseNetwork(nn.Module):
@@ -127,28 +124,33 @@ class ContrastiveLoss(torch.nn.Module):
 
         return loss_contrastive
 
-# Training time
-train_dataloader = DataLoader(siamese_dataset,
-                        shuffle=True,
-                        num_workers=2,
-                        batch_size=Config.train_batch_size)
 
-net = SiameseNetwork().cuda()
-criterion = ContrastiveLoss()
-optimizer = optim.Adam(net.parameters(),lr = 0.0005 )
-counter = []
-iteration_number= 0
+def training_time():
+    folder_dataset = dset.ImageFolder(root=Config.training_dir)
+    siamese_dataset = SiameseNetworkDataset(imageFolderDataset=folder_dataset,
+                                        transform=transforms.Compose([transforms.Resize((100,100)),
+                                                transforms.ToTensor()]), should_invert=False)
+    train_dataloader = DataLoader(siamese_dataset,
+                            shuffle=True,
+                            num_workers=2,
+                            batch_size=Config.train_batch_size)
 
-for epoch in range(0,Config.train_number_epochs): # 100번 학습을 진행
-    for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 64개 데이터가 있는 배치가 하나씩 들어온다다
-        img0, img1 , label = data
-        img0, img1 , label = img0.cuda(), img1.cuda() , label.cuda()
-        optimizer.zero_grad() # 최적화 초기화
-        output1,output2 = net(img0,img1) # 모델에 입력값 대입 후 예측값 산출
-        loss_contrastive = criterion(output1,output2,label) # 손실 함수 계산
-        loss_contrastive.backward() # 손실 함수 기준으로 역전파 설정
-        optimizer.step() # 역전파를 진행하고 가중치 업데이트
-        if i %10 == 0 :
-            print("Epoch number {}\n Current loss {}\n".format(epoch,loss_contrastive.item()))
-            iteration_number +=10
-            counter.append(iteration_number)
+    net = SiameseNetwork().cuda()
+    criterion = ContrastiveLoss()
+    optimizer = optim.Adam(net.parameters(),lr = 0.0005 )
+    counter = []
+    iteration_number= 0
+
+    for epoch in range(0,Config.train_number_epochs): # 100번 학습을 진행
+        for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 64개 데이터가 있는 배치가 하나씩 들어온다다
+            img0, img1 , label = data
+            img0, img1 , label = img0.cuda(), img1.cuda() , label.cuda()
+            optimizer.zero_grad() # 최적화 초기화
+            output1,output2 = net(img0,img1) # 모델에 입력값 대입 후 예측값 산출
+            loss_contrastive = criterion(output1,output2,label) # 손실 함수 계산
+            loss_contrastive.backward() # 손실 함수 기준으로 역전파 설정
+            optimizer.step() # 역전파를 진행하고 가중치 업데이트
+            if i %10 == 0 :
+                print("Epoch number {}\n Current loss {}\n".format(epoch,loss_contrastive.item()))
+                iteration_number +=10
+                counter.append(iteration_number)
