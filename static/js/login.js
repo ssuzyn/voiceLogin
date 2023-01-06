@@ -1,6 +1,5 @@
 // 엘리먼트 취득
 //const $audioEl = document.querySelector("audio");
-const submit = document.getElementById("submit")
 const login = document.getElementById("login")
 const pwd = document.getElementById("pwd");
 const id = document.getElementById("id")
@@ -55,10 +54,11 @@ pwd.onclick = async function (event) {
         console.log("recording stop");
         pwd.style.backgroundColor = 'lightGray';
         isRecording = false;
+        login.disabled = false;
     }
 }
 
-submit.onclick = async function(event) {
+login.onclick = async function(event) {
     console.log("Audio being exported.")
     var filename = id.value + ".wav";
     // console.log(filename)
@@ -66,14 +66,11 @@ submit.onclick = async function(event) {
     let fd = new FormData();
     fd.append('audio_data', blob, filename);
     fd.append('id', id.value);
-    fd.append('cnt', num);
     console.log(fd)
 
-    fetch('http://127.0.0.1:5000/upload', {method:'POST', body: fd})
+    fetch('http://127.0.0.1:5000/login/upload', {method:'POST', body: fd})
     .then((res) => {
-        //window.location.reload()
         res.json()
-        login.disabled = false;
     })
     .catch((error) => {
         console.log(error);

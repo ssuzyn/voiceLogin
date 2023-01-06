@@ -70,7 +70,7 @@ submit.onclick = async function(event) {
     fd.append('cnt', num);
     console.log(fd)
 
-    fetch('http://127.0.0.1:5000/upload', {method:'POST', body: fd})
+    fetch('http://127.0.0.1:5000/signup/upload', {method:'POST', body: fd})
     .then((res) => {
         //window.location.reload()
         res.json()
@@ -98,6 +98,6 @@ function check(){
         submit.value = '3차 입력';
     }
     else if(submit.value == '3차 입력'){
-        submit.value = '제출하세요';
+        submit.value = '제출';
     }
 }
