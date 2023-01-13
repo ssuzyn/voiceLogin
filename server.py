@@ -21,12 +21,12 @@ def login_upload():
     if(request.method=='POST'):
         data = request.files['audio_data']
         id = request.form['id']
-        path = './static/loginInfo/' + id + '/'
+        path = './static/uploads/' + id + '/'
         if not os.path.isdir(path) :
             os.makedirs(path)
         
         data.save(path + secure_filename(data.filename))
-        files = os.listdir("static/loginInfo")
+        files = os.listdir("static/uploads")
         pwd = voice.transformOne(data.filename, id)
         print(pwd)
         print("현재 디렉토리 위치 : ", os.getcwd())
@@ -40,7 +40,7 @@ def signup():
 
 @app.route("/signup/success", methods=['GET'])
 def signup_success():
-    train.training_time()
+    #train.training_time()
     return render_template('check.html')
 
 @app.route("/signup/upload", methods=['POST'])
@@ -50,7 +50,7 @@ def signup_upload():
         id = request.form['id']
         cnt = request.form['cnt']
         #print(data.read())
-        path = './static/uploads/' + id + '/'
+        path = './static/uploads/' + id + '/signup/'
         if not os.path.isdir(path) :
             os.makedirs(path)
         
