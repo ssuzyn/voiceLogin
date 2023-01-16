@@ -40,7 +40,7 @@ def signup():
 
 @app.route("/signup/success", methods=['GET'])
 def signup_success():
-    #train.training_time()
+    train.training_time()
     return render_template('check.html')
 
 @app.route("/signup/upload", methods=['POST'])
