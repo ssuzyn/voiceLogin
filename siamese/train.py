@@ -142,7 +142,7 @@ def training_time():
     iteration_number= 0
 
     for epoch in range(0,Config.train_number_epochs): # 100번 학습을 진행
-        for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 64개 데이터가 있는 배치가 하나씩 들어온다다
+        for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 64개 데이터가 있는 배치가 하나씩 들어온다
             img0, img1 , label = data
             img0, img1 , label = img0.cuda(), img1.cuda() , label.cuda()
             optimizer.zero_grad() # 최적화 초기화
