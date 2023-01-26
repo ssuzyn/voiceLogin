@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 def transform(filename, id, cnt):
-    os.chdir("./static/uploads/" + id + "/signup")
+    os.chdir("./static/uploads/" + id)
     print(os.getcwd())
     # print(os.listdir())
     # print(filename)
@@ -16,10 +16,10 @@ def transform(filename, id, cnt):
     plt.ylim(0, 4000)
     plt.savefig(pwd)
     os.remove(filename)
-    os.chdir("../../../../") #원래 디렉토리 위치로 이동
+    os.chdir("../../../") #원래 디렉토리 위치로 이동
 
 def transformOne(filename, id):
-    os.chdir("./static/uploads/" + id)
+    os.chdir("./static/login/" + id)
     print(os.getcwd())
     pwd = id + '.png'
     signal, sr = librosa.load(filename)

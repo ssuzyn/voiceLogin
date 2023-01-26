@@ -2,7 +2,8 @@ from flask import Flask, jsonify, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import os, warnings
-from siamese import voice, dbconn, train
+from siamese import voice, train
+import dbconn
 
 app = Flask(__name__)
 CORS(app)
@@ -21,15 +22,16 @@ def login_upload():
     if(request.method=='POST'):
         data = request.files['audio_data']
         id = request.form['id']
-        path = './static/uploads/' + id + '/'
+        path = './static/login/' + id + '/'
         if not os.path.isdir(path) :
             os.makedirs(path)
         
         data.save(path + secure_filename(data.filename))
-        files = os.listdir("static/uploads")
+        files = os.listdir("static/login")
         pwd = voice.transformOne(data.filename, id)
         print("현재 디렉토리 위치 : ", os.getcwd())
         #dbconn.database().signup(id, pwd) -> 이거 말고 db에서 비밀번호 select 확인하는 구문 필요한데..
+        
         return jsonify({'host': '127.0.0.1', 'port': '5000'})
 
 
@@ -50,7 +52,7 @@ def signup_upload():
         id = request.form['id']
         cnt = request.form['cnt']
         #print(data.read())
-        path = './static/uploads/' + id + '/signup/'
+        path = './static/uploads/' + id + '/'
         if not os.path.isdir(path) :
             os.makedirs(path)
         
@@ -59,6 +61,7 @@ def signup_upload():
         pwd = voice.transform(data.filename, id, cnt)
         print("현재 디렉토리 위치 : ", os.getcwd())
         #dbconn.database().signup(id, pwd)
+        
         return jsonify({'host': '127.0.0.1', 'port': '5000'})
 
 if __name__=="__main__":

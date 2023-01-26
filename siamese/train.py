@@ -11,11 +11,6 @@ import os
 
 print("현재 디렉토리 위치 : ", os.getcwd())
 
-class Config():
-    training_dir = "./static/uploads/"
-    train_batch_size = 3
-    train_number_epochs = 15
-
 # Loss 함수 정의
 class ContrastiveLoss(torch.nn.Module):
     def __init__(self, margin=2.0):
@@ -31,22 +26,25 @@ class ContrastiveLoss(torch.nn.Module):
 
 
 def training_time():
-    folder_dataset = dset.ImageFolder(root=Config.training_dir)
+    folder_dataset = dset.ImageFolder(root='./static/uploads/')
     siamese_dataset = SiameseNetworkDataset(imageFolderDataset=folder_dataset,
                                         transform=transforms.Compose([transforms.Resize((100,100)),
                                                 transforms.ToTensor()]), should_invert=False)
     train_dataloader = DataLoader(siamese_dataset,
                             shuffle=True,
                             num_workers=2,
-                            batch_size=Config.train_batch_size)
+                            batch_size=64)
 
     net = SiameseNetwork().cuda()
     criterion = ContrastiveLoss()
     optimizer = optim.Adam(net.parameters(),lr = 0.0005 )
-    counter = []
-    iteration_number= 0
 
-    for epoch in range(0,Config.train_number_epochs): # 100번 학습을 진행
+    counter = []
+    loss_history = []
+    iteration_number= 0
+    epoch = 15
+
+    for epoch in range(0,epoch): # 15번 학습을 진행
         for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 64개 데이터가 있는 배치가 하나씩 들어온다
             img0, img1 , label = data
             img0, img1 , label = img0.cuda(), img1.cuda() , label.cuda()
@@ -59,3 +57,7 @@ def training_time():
                 print("Epoch number {}\n Current loss {}\n".format(epoch,loss_contrastive.item()))
                 iteration_number +=10
                 counter.append(iteration_number)
+                loss_history.append(loss_contrastive.item())
+    
+    torch.save(net.state_dict(), 'siamese/model/test.pt')
+    print('done !!')
