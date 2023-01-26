@@ -42,7 +42,7 @@ def signup():
 @app.route("/signup/success", methods=['GET'])
 def signup_success():
     print("---------- training time!!! ----------")
-    train.training_time()
+    train.run()
     return render_template('check.html')
 
 @app.route("/signup/upload", methods=['POST'])
