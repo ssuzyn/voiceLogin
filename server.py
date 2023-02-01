@@ -31,15 +31,21 @@ def login_upload():
         files = os.listdir("static/login/")
         pwd = voice.transformOne(data.filename, id)
         print("현재 디렉토리 위치 : ", os.getcwd())
+        #dbconn.database().signup(id, pwd) -> 이거 말고 db에서 비밀번호 select 확인하는 구문 필요한데..
         user = find.similar(id)
         print(user)
-        #dbconn.database().signup(id, pwd) -> 이거 말고 db에서 비밀번호 select 확인하는 구문 필요한데..
-        
-        return redirect(url_for('login_success', user=user))
+
+        if id == user[0] : return redirect(url_for('login_success', id=id))
+        elif user is None: return redirect(url_for('login_fail'))
+        else: return redirect(url_for('login_fail'))
 
 @app.route("/login/success", methods=['POST', 'GET'])
 def login_success():
     return render_template("user.html", user=user)
+
+@app.route("/login/fail", methods=['POST', 'GET'])
+def login_fail():
+    return render_template("fail.html")
 
 
 @app.route("/signup", methods=['POST', 'GET'])
