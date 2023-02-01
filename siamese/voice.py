@@ -19,7 +19,7 @@ def transform(filename, id, cnt):
     os.chdir("../../../") #원래 디렉토리 위치로 이동
 
 def transformOne(filename, id):
-    os.chdir("./static/login/" + id)
+    os.chdir("./static/login/")
     print(os.getcwd())
     pwd = id + '.png'
     signal, sr = librosa.load(filename)
@@ -28,6 +28,6 @@ def transformOne(filename, id):
     plt.ylim(0, 4000)
     plt.savefig(pwd)
     os.remove(filename)
-    os.chdir("../../../") #원래 디렉토리 위치로 이동
+    os.chdir("../../") #원래 디렉토리 위치로 이동
 
     return pwd

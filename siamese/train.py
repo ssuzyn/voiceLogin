@@ -1,5 +1,5 @@
-from siameseDataset import SiameseNetworkDataset
-from siamese import SiameseNetwork
+from siamese.siameseDataset import SiameseNetworkDataset
+from siamese.siamese import SiameseNetwork
 
 import torch.nn
 import torchvision.datasets as dset
@@ -24,8 +24,7 @@ class ContrastiveLoss(torch.nn.Module):
 
 
 def run():
-    print(os.getcwd())
-    folder_dataset = dset.ImageFolder(root='../static/uploads')
+    folder_dataset = dset.ImageFolder(root='static/uploads')
     siamese_dataset = SiameseNetworkDataset(imageFolderDataset=folder_dataset,
                                         transform=transforms.Compose([transforms.Resize((100,100)),
                                                 transforms.ToTensor()]), should_invert=False)
@@ -45,9 +44,7 @@ def run():
 
     
     for epoch in range(0, epoch): # 15번 학습을 진행
-        print("학습 시작 1\n")
-        for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 3개 데이터가 있는 배치가 하나씩 들어온다
-            print("학습 시작 2\n")
+        for i, data in enumerate(train_dataloader,0): # 무작위로 섞인 개 데이터가 있는 배치가 하나씩 들어온다
             img0, img1 , label = data
             img0, img1 , label = img0.cuda(), img1.cuda() , label.cuda()
             optimizer.zero_grad() # 최적화 초기화
@@ -55,7 +52,6 @@ def run():
             loss_contrastive = criterion(output1,output2,label) # 손실 함수 계산
             loss_contrastive.backward() # 손실 함수 기준으로 역전파 설정
             optimizer.step() # 역전파를 진행하고 가중치 업데이트
-            print("학습 완료")
             if i %10 == 0 :
                 print("Epoch number {}\n Current loss {}\n".format(epoch,loss_contrastive.item()))
                 iteration_number +=10

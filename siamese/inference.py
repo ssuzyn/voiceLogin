@@ -6,8 +6,8 @@ from torch.utils.data import DataLoader
 from torch.autograd import Variable
 from PIL import Image
 
-from siamese import SiameseNetwork
-from siameseDataset import SiameseNetworkDataset
+from siamese.siamese import SiameseNetwork
+from siamese.siameseDataset import SiameseNetworkDataset
 
 net = None
 
@@ -18,7 +18,7 @@ def load_model():
     net.eval()
 
 def load_dataset():
-    dataset_folder = dset.ImageFolder(root='../static/uploads')
+    dataset_folder = dset.ImageFolder(root='static/uploads')
     siamese_dataset = SiameseNetworkDataset(imageFolderDataset=dataset_folder,
                                         transform=transforms.Compose([transforms.Resize((100,100)),
                                                                       transforms.ToTensor()
