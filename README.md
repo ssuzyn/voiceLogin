@@ -42,7 +42,7 @@
 
 학습 모델 test.pt를 바탕으로 test(로그인)와 train(회원가입) 추론
 
-기준: 현재 로그인 하려는 id와 추론된 id의 동일 여부
+성공/실패 기준: 현재 로그인 하려는 id와 추론된 id의 동일 여부
 
 - 추론 성공: login success
 - 추론 실패: login fail
