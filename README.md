@@ -6,6 +6,7 @@
 
 - 회원가입 : static/js/signup.js
 - 로그인 : static/js/login.js
+
   정확한 학습을 위해 회원가입시 3번의 녹음이 필요
 ---
 
@@ -18,7 +19,9 @@
 <siamese/voice.py>
 
 녹음된 wav파일을 MFCC로 변환시켜 반환
+
 변환된 이미지는 회원가입한 아이디를 폴더명으로 하여 저장된다
+
 저장 경로: static/uploads/{아이디}
 
 ---
